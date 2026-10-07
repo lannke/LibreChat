@@ -366,10 +366,12 @@ export const MermaidRenderer = memo(function MermaidRenderer({
                 <Spinner className="h-3 w-3" />
               </div>
               <div
-                className="absolute inset-0 flex items-center justify-center"
+                className={cn(
+                  'absolute inset-0 flex items-center justify-center',
+                  isPanning ? 'transition-none' : 'transition-transform duration-100 ease-out',
+                )}
                 style={{
                   transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-                  transition: isPanning ? 'none' : 'transform 0.1s ease-out',
                 }}
               >
                 <img
@@ -457,10 +459,10 @@ export const MermaidRenderer = memo(function MermaidRenderer({
                 {localize('com_ui_mermaid_failed')}
               </span>
               <Button
-                variant="ghost"
+                variant="quiet"
                 size="sm"
                 onClick={handleRetry}
-                className="text-text-secondary h-auto gap-1 rounded px-2 py-1 text-xs"
+                className="h-auto gap-1 rounded px-2 py-1 text-xs"
               >
                 <RefreshCw className="h-3 w-3" aria-hidden="true" />
                 {localize('com_ui_retry')}
@@ -536,10 +538,12 @@ export const MermaidRenderer = memo(function MermaidRenderer({
           onMouseDown={handleMouseDown}
         >
           <div
-            className="absolute inset-0 flex items-center justify-center"
+            className={cn(
+              'absolute inset-0 flex items-center justify-center',
+              isPanning ? 'transition-none' : 'transition-transform duration-100 ease-out',
+            )}
             style={{
               transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
-              transition: isPanning ? 'none' : 'transform 0.1s ease-out',
             }}
           >
             <img
