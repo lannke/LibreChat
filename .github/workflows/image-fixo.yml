@@ -1,7 +1,9 @@
 # Banc Fixo (07.10.2026) : l'image de LibreChat depuis canary, qui rend les cartes MCP (MCP Apps),
-# absentes de toute image publiée. Lancée à la main seulement.
+# absentes de toute image publiée. Seulement sur la branche fixo-canary.
 name: image-fixo
-on: workflow_dispatch
+on:
+  push:
+    branches: [fixo-canary]
 permissions:
   contents: read
   packages: write
