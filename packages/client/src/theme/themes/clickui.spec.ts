@@ -171,6 +171,12 @@ const colorSources: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>>> 
     'rgb-illustration-subtle': 'palette.info.200',
     'rgb-illustration': 'palette.info.400',
     'rgb-illustration-strong': 'palette.info.600',
+    'rgb-page-canvas': 'global.color.background.default',
+    'rgb-select-fill': 'click.field.color.background.default',
+    'rgb-select-edge': 'click.field.color.stroke.default',
+    'rgb-button-neutral-border': 'click.button.basic.color.secondary.stroke.default',
+    'rgb-button-neutral-text': 'global.color.text.default',
+    'rgb-link-inline': 'palette.info.500',
     'rgb-file-document': 'palette.info.700',
     'rgb-file-sheet': 'palette.success.700',
     'rgb-file-code': 'palette.warning.600',
@@ -318,6 +324,12 @@ const colorSources: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>>> 
     'rgb-illustration-subtle': 'palette.info.200',
     'rgb-illustration': 'palette.info.400',
     'rgb-illustration-strong': 'palette.info.600',
+    'rgb-page-canvas': 'global.color.background.default',
+    'rgb-select-fill': 'click.field.color.background.default',
+    'rgb-select-edge': 'click.field.color.stroke.default',
+    'rgb-button-neutral-border': 'click.button.basic.color.secondary.stroke.default',
+    'rgb-button-neutral-text': 'global.color.text.default',
+    'rgb-link-inline': 'global.color.text.link.default',
     'rgb-file-document': 'palette.info.400',
     'rgb-file-sheet': 'palette.success.700',
     'rgb-file-code': 'palette.warning.600',
@@ -357,6 +369,8 @@ const MEDIA_OVERLAY_REASON =
   'Click UI has no media scrim; the image frame stays black in both modes';
 const AVATAR_EDGE_REASON =
   'Click UI avatars draw no edge; the theme keeps the 10% hairline every LibreChat avatar has';
+const STYLESHEET_ROLE_REASON =
+  'Click UI has no scrollbar, secondary button fill or toast edge; the theme keeps the stock role';
 const MEDIA_SCRIM_DEPARTURE =
   'the dialog scrim is the nearest Click UI job; a lightbox frames the user image in black instead';
 
@@ -370,6 +384,10 @@ const unsourcedColors: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>
       'Click UI sidebar item hover is a 0.6 alpha lch; the theme paints its composite on background.split',
     'rgb-surface-media-overlay': MEDIA_OVERLAY_REASON,
     'rgb-avatar-edge': AVATAR_EDGE_REASON,
+    'rgb-scrollbar-thumb': STYLESHEET_ROLE_REASON,
+    'rgb-button-neutral-hover': STYLESHEET_ROLE_REASON,
+    'rgb-toast-edge': STYLESHEET_ROLE_REASON,
+    'rgb-stroke-ink': AVATAR_EDGE_REASON,
     'rgb-alert-error-fill': ALERT_ALPHA_REASON,
     'rgb-alert-error-border': ALERT_ALPHA_REASON,
   },
@@ -380,6 +398,10 @@ const unsourcedColors: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>
       'Click UI dark dialog.color.opaqueBackground is a gray that leaves the dialog under 3:1',
     'rgb-surface-media-overlay': MEDIA_OVERLAY_REASON,
     'rgb-avatar-edge': AVATAR_EDGE_REASON,
+    'rgb-scrollbar-thumb': STYLESHEET_ROLE_REASON,
+    'rgb-button-neutral-hover': STYLESHEET_ROLE_REASON,
+    'rgb-toast-edge': STYLESHEET_ROLE_REASON,
+    'rgb-stroke-ink': AVATAR_EDGE_REASON,
     'rgb-alert-error-fill': ALERT_ALPHA_REASON,
     'rgb-alert-error-border': ALERT_ALPHA_REASON,
   },
@@ -424,6 +446,26 @@ const departures: Record<ThemeMode, Partial<Record<keyof IThemeRGB, Departure>>>
     'rgb-avatar-edge': {
       counterpart: 'global.color.stroke.default',
       status: 'near',
+      reason: AVATAR_EDGE_REASON,
+    },
+    'rgb-scrollbar-thumb': {
+      counterpart: 'global.color.stroke.intense',
+      status: 'mismatch',
+      reason: STYLESHEET_ROLE_REASON,
+    },
+    'rgb-button-neutral-hover': {
+      counterpart: 'global.color.background.muted',
+      status: 'near',
+      reason: STYLESHEET_ROLE_REASON,
+    },
+    'rgb-toast-edge': {
+      counterpart: 'global.color.stroke.default',
+      status: 'mismatch',
+      reason: STYLESHEET_ROLE_REASON,
+    },
+    'rgb-stroke-ink': {
+      counterpart: 'global.color.stroke.default',
+      status: 'mismatch',
       reason: AVATAR_EDGE_REASON,
     },
     'rgb-surface-media-overlay': {
@@ -575,6 +617,26 @@ const departures: Record<ThemeMode, Partial<Record<keyof IThemeRGB, Departure>>>
         'tooltip.color.background.default is the #282828 canvas in dark, which hides the chip; one step up the neutral ramp keeps white 4.5:1 and lifts it off the page',
     },
     'rgb-avatar-edge': {
+      counterpart: 'global.color.stroke.default',
+      status: 'mismatch',
+      reason: AVATAR_EDGE_REASON,
+    },
+    'rgb-scrollbar-thumb': {
+      counterpart: 'global.color.stroke.intense',
+      status: 'mismatch',
+      reason: STYLESHEET_ROLE_REASON,
+    },
+    'rgb-button-neutral-hover': {
+      counterpart: 'global.color.background.muted',
+      status: 'near',
+      reason: STYLESHEET_ROLE_REASON,
+    },
+    'rgb-toast-edge': {
+      counterpart: 'global.color.stroke.default',
+      status: 'mismatch',
+      reason: STYLESHEET_ROLE_REASON,
+    },
+    'rgb-stroke-ink': {
       counterpart: 'global.color.stroke.default',
       status: 'mismatch',
       reason: AVATAR_EDGE_REASON,
@@ -775,6 +837,7 @@ const appearanceSources: Partial<Record<keyof IThemeAppearance, string>> = {
   scrimOpacity: 'click.dialog.color.opaqueBackground.default',
   alertScrimOpacity: 'click.dialog.color.opaqueBackground.default',
   modalScrimOpacity: 'click.dialog.color.opaqueBackground.default',
+  buttonNeutralBorderOpacity: 'click.button.basic.color.secondary.stroke.default',
   switchWidth: 'click.switch.size.width',
   switchHeight: 'click.switch.size.height',
   checkboxSize: 'click.checkbox.size.all',
@@ -955,6 +1018,7 @@ const scrimKeys: ReadonlySet<keyof IThemeAppearance> = new Set([
   'scrimOpacity',
   'alertScrimOpacity',
   'modalScrimOpacity',
+  'buttonNeutralBorderOpacity',
 ]);
 
 /** Roles read out of a Click UI `font` shorthand, and the part each one is. */
