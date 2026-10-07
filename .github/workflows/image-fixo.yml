@@ -1,0 +1,22 @@
+# Banc Fixo (07.10.2026) : l'image de LibreChat depuis canary, qui rend les cartes MCP (MCP Apps),
+# absentes de toute image publiée. Lancée à la main seulement.
+name: image-fixo
+on: workflow_dispatch
+permissions:
+  contents: read
+  packages: write
+jobs:
+  image:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with: { registry: ghcr.io, username: "${{ github.actor }}", password: "${{ secrets.GITHUB_TOKEN }}" }
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ghcr.io/lannke/librechat:canary
